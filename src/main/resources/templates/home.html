@@ -350,10 +350,20 @@
         <div class="section">
             <div class="section-title">Open Existing Short Link</div>
 
-            <form action="/redirect" method="get" target="_blank">
-                <input type="text" name="code" placeholder="Enter short code..." required />
-    <button type="submit">Open</button>
-</form>
+    <form id="redirectForm" method="get" target="_blank">
+        <input type="text" id="shortUrlInput" placeholder="Enter short URL..." required />
+        <button type="submit">Open</button>
+    </form>
+
+    <script>
+        document.getElementById("redirectForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const fullUrl = document.getElementById("shortUrlInput").value.trim();
+            // Extract code after last slash
+            const code = fullUrl.substring(fullUrl.lastIndexOf("/") + 1);
+            window.open("/" + code, "_blank"); // calls /{code}
+        });
+    </script>
         </div>
 
         <footer>
