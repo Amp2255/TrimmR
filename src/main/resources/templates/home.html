@@ -337,7 +337,51 @@
                 th:text="${shortUrl}"
                 target="_blank">
             </a>
+        <button onclick="copyShortUrl()" title="Copy to clipboard">📋</button>
+
+
+       <div class="share-options">
+    <!-- Email -->
+    <a th:href="'mailto:?subject=Your%20TrimIt%20Link&body=✨%20Transform%20long%20messy%20URLs%20into%20sleek,%20shareable%20short%20links%20with%20TrimIt:%0D%0A' + ${shortUrl}" 
+       title="Share via Email">✉️</a>
+
+    <!-- Facebook -->
+    <a th:href="'https://www.facebook.com/sharer/sharer.php?u=' + ${shortUrl}" 
+       target="_blank" title="Share on Facebook">📘</a>
+
+    <!-- WhatsApp -->
+    <a th:href="'https://api.whatsapp.com/send?text=✨%20Transform%20long%20messy%20URLs%20into%20sleek,%20shareable%20short%20links%20with%20TrimIt:%20' + ${shortUrl}" 
+       target="_blank" title="Share on WhatsApp">📱</a>
+
+    <!-- Twitter/X -->
+    <a th:href="'https://twitter.com/intent/tweet?text=✨%20Transform%20long%20messy%20URLs%20into%20sleek,%20shareable%20short%20links%20with%20TrimIt:%20' + ${shortUrl}" 
+       target="_blank" title="Share on Twitter/X">🐦</a>
+
+    <!-- LinkedIn -->
+    <a th:href="'https://www.linkedin.com/sharing/share-offsite/?url=' + ${shortUrl}" 
+       target="_blank" title="Share on LinkedIn">💼</a>
+</div>
+
+
+    
         </div>
+
+        <script>
+        async function copyShortUrl() {
+            try {
+                // Get the short URL from the link
+                const shortUrl = document.querySelector(".result a").href;
+
+                // Write to clipboard
+                await navigator.clipboard.writeText(shortUrl);
+
+                // Feedback to user
+                alert("Copied to clipboard: " + shortUrl);
+            } catch (err) {
+                alert("Failed to copy: " + err);
+            }
+        }
+        </script>
 
         <!-- ERROR -->
         <div class="error" th:if="${error}">
